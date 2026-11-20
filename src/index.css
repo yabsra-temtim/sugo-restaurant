@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f5ede0;
+  --surface: #fbf6ec;
+  --ink: #231f1c;
+  --muted: #6e6259;
+  --brand: #c0392b;
+  --on-brand: #ffffff;
+  --basil: #3f5b3b;
+  --line: #dccfbb;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #1a1513;
+  --surface: #261f1c;
+  --ink: #f3eadc;
+  --muted: #b3a698;
+  --brand: #e5604b;
+  --on-brand: #1a1513;
+  --basil: #8fb08a;
+  --line: #3a322d;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1513;
+    --surface: #261f1c;
+    --ink: #f3eadc;
+    --muted: #b3a698;
+    --brand: #e5604b;
+    --on-brand: #1a1513;
+    --basil: #8fb08a;
+    --line: #3a322d;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+  --color-basil: var(--basil);
+  --color-line: var(--line);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-bg font-sans text-ink antialiased transition-colors duration-300; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+  ::selection { background: var(--brand); color: var(--on-brand); }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 32s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+}
